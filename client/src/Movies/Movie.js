@@ -11,7 +11,7 @@ export default class Movie extends Component {
   }
 
   componentDidMount() {
-    const  id  = this.props.match.params.id === id;
+    const  id  = this.props.match.params
   
     this.fetchMovie(id);
   }
@@ -33,36 +33,21 @@ export default class Movie extends Component {
   //   }
   // }
 
-  // saveMovie = () => {
-  //   const addToSavedList = this.props.addToSavedList;
-  //   addToSavedList(this.state.movie)
-  // }
+  saveMovie = () => {
+    const addToSavedList = this.props.addToSavedList;
+    addToSavedList(this.state.movie)
+  }
 
   render() {
     if (!this.state.movie) {
       return <div>Loading movie information...</div>;
     }
 
-    const { title, director, metascore, stars } = this.state.movie;
+    const { movie } = this.state;
     return (
       <div className="save-wrapper">
-        <div className="movie-card">
-          <h2>{title}</h2>
-          <div className="movie-director">
-            Director: <em>{director}</em>
-          </div>
-          <div className="movie-metascore">
-            Metascore: <strong>{metascore}</strong>
-          </div>
-          <h3>Actors</h3>
-
-          {stars.map(star => (
-            <div key={star} className="movie-star">
-              {star}
-            </div>
-          ))}
-        </div>
-        <div className="save-button">Save</div>
+       <MovieCard movie={movie} />
+        <div className="save-button" onClick={() => this.saveMovie}>Save</div>
       </div>
     );
   }
